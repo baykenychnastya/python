@@ -32,6 +32,9 @@ def inputArray():
         array.append(number)
     return array
 
+def checkIntervalIsValid(lowerLimit, upperLimit):
+    return lowerLimit <= upperLimit
+
 def generateArray():
     import random
     array = []
@@ -43,7 +46,7 @@ def generateArray():
 
     lowerLimit=readInteger('Enter the lower limit of the range: ', 'The lower limit  must be represented by a number!')
     upperLimit=readInteger('Enter the upper limit of the range: ', 'The upper limit  must be represented by a number!')
-    if upperLimit<lowerLimit:
+    if checkIntervalIsValid(lowerLimit, upperLimit) is False:
         print('The upper limit must be greater than the lower!\n')
         return array
     for i in range(size):
@@ -55,13 +58,13 @@ import operator
 def mergeSort(array, compare=operator.lt):
     global operationsCount
     if len(array) < 2:
-        operationsCount+=1
-        return array [:]
+        operationsCount += 1
+        return array[:]
     else:
         middle = int(len(array) / 2)
         left = mergeSort(array[:middle], compare)
         right = mergeSort(array[middle:], compare)
-        operationsCount+=1
+        operationsCount += 1
         return merge(left, right, compare)
 
 def merge(left, right, compare):
@@ -70,7 +73,7 @@ def merge(left, right, compare):
     result = []
     i, j = 0, 0
     while i < len(left) and j < len(right):
-        operationsCount+=1
+        operationsCount += 1
         if compare(left[i], right[j]):
             result.append(left[i])
             i += 1
@@ -87,25 +90,36 @@ def merge(left, right, compare):
         j += 1
     return result
 
-while True:
-    mas=[]
-    choose=input('Press 1 if you want to enter an array of length N from the keyboard \nPress 2 if you want to generate an arbitrary array of length N \nPress 3 to exit the program: ')
+def createAndSortArray():
+    mas = inputArray()
+    print('Your array: ', mas)
+
+    sortArray(mas)
+
+def createAndSortGenerateArray():
+    mas = generateArray()
+    if mas == []:
+        return
+
+    print('Your array: ', mas)
+    sortArray(mas)
+
+def sortArray(mas):
+    global operationsCount
+
     operationsCount = 0
-    if choose=='1':
-        mas=inputArray()
-        print('Your array: ',mas)
-        print('Sorted array by Merge Sort: ',mergeSort(mas))
-        print('Number of operations = ',operationsCount)
-        operationsCount = 0
-    elif choose=='2':
-        mas=generateArray()
-        if mas==[]:
-            continue
-        print('The generated array: ',mas)
-        print('Sorted array by Merge Sort: ',mergeSort(mas))
-        print('Number of operations = ',operationsCount)
-        operationsCount = 0
-    elif choose =='3':
+    print('Sorted array by Merge Sort: ', mergeSort(mas))
+    print('Number of operations = ', operationsCount)
+
+while True:
+    mas = []
+    choose = input('Press 1 if you want to enter an array of length N from the keyboard \nPress 2 if you want to generate an arbitrary array of length N \nPress 3 to exit the program: ')
+    operationsCount = 0
+    if choose == '1':
+        createAndSortArray()
+    elif choose == '2':
+        createAndSortGenerateArray()
+    elif choose == '3':
         break
     else:
         print('Please enter only the options offered in the menu!\n')
