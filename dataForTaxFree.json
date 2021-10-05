@@ -1,0 +1,2 @@
+[{ "ID": 0, "Company": "12", "Country": "France", "vat_rate": 40,"date_of_purchase": "0123-12-12", "vat_code": "VA123_12_123","date_of_tax_free_registration": "0123-12-12"} ,
+  { "ID": 1, "Company": "12", "Country": "France", "vat_rate": 12,"date_of_purchase": "0123-12-12", "vat_code": "VA123_12_123","date_of_tax_free_registration": "0123-12-12"} ]
