@@ -1,93 +1,117 @@
+import itertools
+
 from TaxFree import TAX_FREE
 import json
+from os.path import exists
+
+from validationForTaxFree import readInteger
+
+
+def enterFileName():
+    print('Enter a file name: ')
+    nameFile = input()
+    nameFile += '.json'
+    return nameFile
+
+
+filename = enterFileName()
 
 
 class TaxFreeCollection(object):
     taxFrees = []
+    id_iter = None
 
     def __init__(self):
-        with open('dataForTaxFree.json', 'r', encoding='utf-8') as f:
-            taxFreesJson = json.load(f)
+        file_exists = exists(filename)
+        if file_exists:
+            self.readDataFromFile()
+        else:
+            open(filename, 'a', encoding='utf-8')
 
-            for taxFreeJson in taxFreesJson:
-                self.taxFrees.append(
-                    TAX_FREE(
-                        taxFreeJson['ID'],
-                        taxFreeJson['Company'],
-                        taxFreeJson['Country'],
-                        taxFreeJson['vat_rate'],
-                        taxFreeJson['date_of_purchase'],
-                        taxFreeJson['vat_code'],
-                        taxFreeJson['date_of_tax_free_registration'])
-                )
+        self.initIDIter()
+
+    def readDataFromFile(self):
+        taxFreesFromFile = []
+        with open(filename, 'r', encoding='utf-8') as f:
+            taxFreesJson = json.load(f)
+        for taxFreeJson in taxFreesJson:
+            taxFreesFromFile.append(TAX_FREE(**taxFreeJson))
+
+        for index, taxFreeFromFile in enumerate(taxFreesFromFile):
+            if taxFreeFromFile.checkIsValid():
+                self.taxFrees.append(taxFreeFromFile)
+            else:
+                print(f'Above validation errors for tax free with index {index}')
+                print()
+
+    def initIDIter(self):
+        if len(self.taxFrees) > 0:
+            self.id_iter = itertools.count(start=self.taxFrees[-1].ID.value + 1)
+        else:
+            self.id_iter = itertools.count()
 
     def display(self):
         for obj in self.taxFrees:
-            print(obj.ID, obj.Company, obj.Country, obj.vat_rate, obj.date_of_purchase, obj.vat_code,
-                  obj.date_of_tax_free_registration, sep=' ')
+            obj.display()
 
     def sort(self):
-        self.taxFrees.sort(key=lambda t: t.vat_rate)
+        print("Attribute for sort:")
+        attr = input()
+        try:
+            self.taxFrees.sort(key=lambda x: getattr(x, f"get_{attr}")(), reverse=False)
+        except:
+            print('Invalid data,try again ')
+            self.sort()
 
     def addNew(self):
         tax = TAX_FREE()
 
-        tax.generateID()
-        tax.enterCompany()
-        tax.enterCountry()
-        tax.enterVatRate()
-        tax.enterDate_of_purchase()
-        tax.enterVat_code()
-        tax.enterDate_of_tax_free_registration()
+        tax.ID.value = next(self.id_iter)
+
+        for method_name in dir(tax):
+            if method_name.startswith("enter"):
+                getattr(tax, method_name)()
 
         self.taxFrees.append(tax)
 
     def saveChanges(self):
-        jsonCollection = '['
+        jsonCollection = json.dumps([obj.toJson() for obj in self.taxFrees], indent=2, default=str)
 
-        for taxFree in self.taxFrees:
-            jsonCollection += f'{taxFree.detJsonType()}, '
-
-        jsonCollection = jsonCollection[:-2] + ']'
-
-        with open('dataForTaxFree.json', 'w') as f:
+        with open(filename, 'w') as f:
             f.write(jsonCollection)
 
-    def deleteByID(self, ID):
+    def deleteByID(self):
+        ID = readInteger('Enter ID: ', 'Data must be represented by a positive number, try again ')
         for taxFree in self.taxFrees:
-            if taxFree.ID == ID:
+            if taxFree.ID.value == ID:
                 self.taxFrees.remove(taxFree)
                 return
 
+    def edit(self):
+        ID = readInteger('Enter ID: ', 'Data must be represented by a positive number, try again ')
+        self.editNoteByID(ID)
+
     def editNoteByID(self, ID):
         for taxFree in self.taxFrees:
-            if taxFree.ID == ID:
-                self.deleteByID(ID)
-                self.edit(taxFree)
+            if taxFree.ID.value != ID:
+                continue
 
-                return
+            for method_name in dir(taxFree):
+                if method_name.startswith("enter"):
+                    getattr(taxFree, method_name)()
+            return
 
-    def edit(self, taxFree):
-        taxFree.enterCompany()
-        taxFree.enterCountry()
-        taxFree.enterVatRate()
-        taxFree.enterDate_of_purchase()
-        taxFree.enterVat_code()
-        taxFree.enterDate_of_tax_free_registration()
-
-        self.taxFrees.append(taxFree)
-
-    def find(self, value):
-        str(value)
+    def find(self):
+        print('Enter something:')
+        data = input()
         isFind = False
-        print("Objects with coincidence:")
+        print('Objects with coincidence:')
 
-        for item in self.taxFrees:
-            if str(item.ID).find(value) != -1 or str(item.Company).find(value) != -1\
-                    or str(item.Country).find(value) != -1 or str(item.vat_rate).find(value) != -1\
-                    or str(item.date_of_purchase).find(value) != -1 or str(item.vat_code).find(value) != -1\
-                    or str(item.date_of_tax_free_registration).find(value) != -1:
-                item.display()
-                isFind = True
+        for taxFree in self.taxFrees:
+            for method_name in dir(taxFree):
+                if method_name.startswith("get_") and str(f'{getattr(taxFree, method_name)()}').find(data) != -1:
+                    taxFree.display()
+                    isFind = True
+                    break
         if not isFind:
-            print("Oops, there is no coincidence")
+            print('Unfortunately, there is no coincidence')

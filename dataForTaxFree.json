@@ -1,2 +1,29 @@
-[{ "ID": 0, "Company": "12", "Country": "France", "vat_rate": 40,"date_of_purchase": "0123-12-12", "vat_code": "VA123_12_123","date_of_tax_free_registration": "0123-12-12"} ,
-  { "ID": 1, "Company": "12", "Country": "France", "vat_rate": 12,"date_of_purchase": "0123-12-12", "vat_code": "VA123_12_123","date_of_tax_free_registration": "0123-12-12"} ]
+[
+  {
+    "ID": 9,
+    "Company": "nbjtykh",
+    "Country": "Italy",
+    "vat_rate": 34,
+    "date_of_purchase": "0004-04-04",
+    "vat_code": "VA444_44_444",
+    "date_of_tax_free_registration": "0003-03-03"
+  },
+  {
+    "ID": 8,
+    "Company": "Fix",
+    "Country": "Germany",
+    "vat_rate": 6,
+    "date_of_purchase": "2001-09-03",
+    "vat_code": "VA111_11_111",
+    "date_of_tax_free_registration": "2020-11-09"
+  },
+  {
+    "ID": 11,
+    "Company": "fe",
+    "Country": "France",
+    "vat_rate": 5,
+    "date_of_purchase": "0005-05-05",
+    "vat_code": "VA555_55_555",
+    "date_of_tax_free_registration": "0005-05-05"
+  }
+]

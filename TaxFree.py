@@ -1,74 +1,90 @@
-import json
-from validationForTaxFree import checkVadCoode
-import datetime
-from validationForTaxFree import readIntegerWithCheck
+import enum
+from Inputs import *
+from Input import *
 
 
 class TAX_FREE(object):
 
     def __init__(self, ID=None, Company=None, Country=None, vat_rate=None, date_of_purchase=None, vat_code=None,
                  date_of_tax_free_registration=None):
-        self.ID = ID
-        self.Company = Company
-        self.Country = Country
-        self.vat_rate = vat_rate
-        self.date_of_purchase = date_of_purchase
-        self.vat_code = vat_code
-        self.date_of_tax_free_registration = date_of_tax_free_registration
+        self.ID = Input(ID, 'ID', [validateInteger, validatePositive])
+        self.Company = Input(Company, 'Company', [validateRequiredStringWithTrim])
+        self.Country = Input(Country, 'Country (Italy or Germany or France)', [lambda value: validateEnumValue(value, CountryEnum)])
+        self.vat_rate = InputInteger(vat_rate, "Vat rate", [lambda x: 0 < x < 41])
+        self.date_of_purchase = InputDate(date_of_purchase, "Date of purchase", [validateDateString])
+        self.vat_code = Input(vat_code, "Vat code (in kind VA***_**_***)", [lambda x: patternValidation(x, "^VA.{3,3}_.{2,2}_.{3,3}$")])
+        self.date_of_tax_free_registration = InputDate(date_of_tax_free_registration, "Date of tax free registration", [validateDateString])
 
-    import enum
+        self.inputValues = Inputs([
+            self.ID,
+            self.Company,
+            self.Country,
+            self.vat_rate,
+            self.date_of_purchase,
+            self.vat_code,
+            self.date_of_tax_free_registration])
 
-    class Country(enum.Enum):
-        Germany = 0
-        Italy = 1
-        France = 2
+    def validate(self):
+        self.inputValues.validate()
 
-    file = open('dataForTaxFree.json')
+    def checkIsValid(self):
+        return self.inputValues.get_isValid()
 
-    import itertools
+    def get_ID(self):
+        return self.ID.value
 
-    id_iter = itertools.count()
+    def get_Company(self):
+        return self.Company.value
 
-    def generateID(self):
+    def get_Country(self):
+        return self.Country.value
 
-        self.ID = next(TAX_FREE.id_iter)
-        # print('ID', self.ID)
-        return self.ID
+    def get_vat_rate(self):
+        return self.vat_rate.value
+
+    def get_date_of_purchase(self):
+        return self.date_of_purchase.value
+
+    def get_vat_code(self):
+        return self.vat_code.value
+
+    def get_date_of_tax_free_registration(self):
+        return self.date_of_tax_free_registration.value
 
     def enterCompany(self):
-        self.Company = input('Enter Company: ')
+        self.Company.readValue()
 
     def enterCountry(self):
-        selectCountry = input('Select a country:\t1-Germany\t2-Italy \t3-France: ')
-        if selectCountry == '1':
-            self.Country = 'Germany'
-        elif selectCountry == '2':
-            self.Country = 'Italy'
-        elif selectCountry == '3':
-            self.Country = 'France'
-        else:
-            print('Please select only the options listed above!')
+        self.Country.readValue()
 
     def enterVatRate(self):
-        self.vat_rate = readIntegerWithCheck('Enter Vat Rate:', lambda x: 0 < x < 41, 'Invalid data, try again ')
-
-    def enterDate_of_purchase(self):
-        year = readIntegerWithCheck('Enter year of purchase: ', lambda x: 0 < x < 2021, 'Invalid data, try again ')
-        month = readIntegerWithCheck('Enter moth of purchase: ', lambda x: 0 < x < 13, 'Invalid data, try again ')
-        day = readIntegerWithCheck('Enter day of purchase: ', lambda x: 0 < x < 31, 'Invalid data, try again ')
-        self.date_of_purchase = datetime.date(year, month, day)
-
-    def enterVat_code(self):
-        self.vat_code = checkVadCoode('Enter Vat code in kind VA***_**_***: ')
+        self.vat_rate.readValue()
 
     def enterDate_of_tax_free_registration(self):
-        year = readIntegerWithCheck('Enter year of registration: ', lambda x: 0 < x < 2021, 'Invalid data, try again ')
-        month = readIntegerWithCheck('Enter moth of registration: ', lambda x: 0 < x < 13, 'Invalid data, try again ')
-        day = readIntegerWithCheck('Enter day of registration: ', lambda x: 0 < x < 31, 'Invalid data, try again ')
-        self.date_of_tax_free_registration = datetime.date(year, month, day)
+        self.date_of_tax_free_registration.readValue()
 
-    def detJsonType(self):
-        return f'{{ "ID": {self.generateID()}, "Company": "{self.Company}", "Country": "{self.Country}", "vat_rate": {self.vat_rate},"date_of_purchase": "{self.date_of_purchase}", "vat_code": "{self.vat_code}","date_of_tax_free_registration": "{self.date_of_tax_free_registration}"}} '
+    def enterVat_code(self):
+        self.vat_code.readValue()
+
+    def enterDate_of_purchase(self):
+        self.date_of_purchase.readValue()
+
+    def toJson(self):
+        return {
+            "ID": self.ID.value,
+            "Company": self.Company.value,
+            "Country": self.Country.value,
+            "vat_rate": self.vat_rate.value,
+            "date_of_purchase": str(self.date_of_purchase.value),
+            "vat_code": self.vat_code.value,
+            "date_of_tax_free_registration": str(self.date_of_tax_free_registration.value)
+        }
 
     def display(self):
-        print(f'"ID": {self.generateID()}, "Company": "{self.Company}", "Country": "{self.Country}", "vat_rate": {self.vat_rate},"date_of_purchase": "{self.date_of_purchase}", "vat_code": "{self.vat_code}","date_of_tax_free_registration": "{self.date_of_tax_free_registration}"')
+        print(self.toJson())
+
+
+class CountryEnum(str, enum.Enum):
+    Germany = "Germany"
+    Italy = "Italy"
+    France = "France"

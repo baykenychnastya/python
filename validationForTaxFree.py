@@ -1,3 +1,71 @@
+import re
+import datetime
+
+
+def patternValidation(value, regEx):
+    pattern = re.compile(regEx)
+    if pattern.match(value):
+        return True
+
+    print(f'Invalid value {value}: must match the regular expression {regEx}')
+    return False
+
+
+def validateDateString(value):
+    try:
+        datetime.datetime.strptime(value, '%Y-%m-%d')
+        return True
+    except ValueError:
+        print("Incorrect data format, must be YYYY-MM-DD")
+        return False
+
+
+def validateInteger(value):
+    try:
+        int(value)
+        return True
+    except ValueError:
+        print(f'Value {value} must be integer')
+        return False
+
+
+def validatePositive(value):
+    if value < 0:
+        print(f'Value {value} must be positive')
+        return False
+
+    return True
+
+
+def validateEnumValue(value, Enum):
+    validValues = tuple(item.value for item in Enum)
+
+    if value in validValues:
+        return True
+
+    print(f'Not valid value: {value}')
+    return False
+
+
+def validateRequiredStringWithTrim(value):
+    if len(value.strip()) > 0:
+        return True
+
+    print("Value is required")
+    return False
+
+
+def readInteger(inputMessage, invalidDataMessages):
+    data = input(inputMessage)
+
+    try:
+        data = int(data)
+    except ValueError:
+        print(invalidDataMessages)
+        return readInteger(inputMessage, invalidDataMessages)
+
+    return data
+
 
 def readIntegerWithCheck(inputMessage, isValid, invalidInputMessage=''):
     data = input(inputMessage)
@@ -13,26 +81,3 @@ def readIntegerWithCheck(inputMessage, isValid, invalidInputMessage=''):
         return readIntegerWithCheck(inputMessage, isValid, invalidInputMessage)
 
     return data
-
-
-"""def readDay(inputMessage, invalidDataMessages):
-    data = input(inputMessage)
-    
-    try:
-        data = int(data)
-    except ValueError:
-        print(invalidDataMessages)
-    if month == 1 or 3 or 5 or 7 or 8 or 10 or 12:
-        data < 31
-    elif month ==
-"""
-
-def checkVadCoode(inputMessage):
-    data = input(inputMessage)
-    import re
-    pattern = re.compile("^VA.{3,3}_.{2,2}_.{3,3}$")
-    if pattern.match(data):
-        return data
-    else:
-        print('Invalid data: ')
-        return checkVadCoode(inputMessage)
