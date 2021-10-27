@@ -1,0 +1,29 @@
+[
+  {
+    "ID": 3,
+    "Company": "fdf",
+    "Country": "Italy",
+    "vat_rate": 23,
+    "date_of_purchase": "2000-12-12",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2000-12-12"
+  },
+  {
+    "ID": 4,
+    "Company": "ffffffff",
+    "Country": "Italy",
+    "vat_rate": 12,
+    "date_of_purchase": "2000-12-12",
+    "vat_code": "VA123_12_123",
+    "date_of_tax_free_registration": "2001-12-12"
+  },
+  {
+    "ID": 1,
+    "Company": "ggggg",
+    "Country": "Italy",
+    "vat_rate": 22,
+    "date_of_purchase": "2001-12-12",
+    "vat_code": "VA123_dd_ddd",
+    "date_of_tax_free_registration": "2002-11-11"
+  }
+]
