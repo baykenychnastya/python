@@ -1,0 +1,20 @@
+[
+  {
+    "ID": 1,
+    "Company": "ddddddddddddd",
+    "Country": "Italy",
+    "vat_rate": 2,
+    "date_of_purchase": "2019-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2019-10-10"
+  },
+  {
+    "ID": 2,
+    "Company": "fffff",
+    "Country": "Germany",
+    "vat_rate": 2,
+    "date_of_purchase": "2020-12-12",
+    "vat_code": "VA333_dd_ddd",
+    "date_of_tax_free_registration": "2020-12-12"
+  }
+]
