@@ -26,16 +26,5 @@ class LinkedListGenerator:
         while True:
             yield random.randint(lowerLimit, upperLimit)
 
-"""    @staticmethod
-    def GenerateListUsingGenerator():
-        count, lowerLimit, upperLimit = LinkedListGenerator.getGenerateParameters()
-
-        List = LinkedList()
-
-        generator = LinkedListGenerator.functionGenerator(lowerLimit, upperLimit)
-
-        for i in range(count):
-            List.append(next(generator))
-        return List"""
 
 
