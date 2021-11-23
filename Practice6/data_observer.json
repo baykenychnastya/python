@@ -1,0 +1,29 @@
+[
+  {
+    "event": "add",
+    "listBeforeChanges": "[]",
+    "positionOfInsert": 0,
+    "listAfterChanges": "[23, 32, 6, 10, 13]"
+  },
+  {
+    "event": "remove",
+    "listBeforeChanges": "[23, 32, 6, 10, 13]",
+    "positionOfRemove": 0,
+    "listAfterChanges": "[32, 6, 10, 13]"
+  },
+  {
+    "event": "add",
+    "listBeforeChanges": "[32, 6, 10, 13]",
+    "positionOfInsert": 0,
+    "listAfterChanges": "[32, 6, 10, 13, 32, 6, 10, 13]"
+  },
+  {
+    "event": "remove",
+    "listBeforeChanges": "[32, 6, 10, 13, 32, 6, 10, 13]",
+    "rangOfRemove": [
+      2,
+      4
+    ],
+    "listAfterChanges": "[32, 6, 6, 10, 13]"
+  }
+]
