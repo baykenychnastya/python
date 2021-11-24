@@ -1,0 +1,29 @@
+[
+  {
+    "ID": 0,
+    "Company": "Google",
+    "Country": "Italy",
+    "vat_rate": 34,
+    "date_of_purchase": "2020-12-12",
+    "vat_code": "VA333_33_333",
+    "date_of_tax_free_registration": "2020-12-12"
+  },
+  {
+    "ID": 1,
+    "Company": "Figma",
+    "Country": "Germany",
+    "vat_rate": 33,
+    "date_of_purchase": "2012-11-11",
+    "vat_code": "VA333_33_333",
+    "date_of_tax_free_registration": "2021-12-12"
+  },
+  {
+    "ID": 2,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 32,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  }
+]
