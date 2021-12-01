@@ -1,0 +1,101 @@
+[
+  {
+    "ID": 1,
+    "Company": "Figma",
+    "Country": "Germany",
+    "vat_rate": 33,
+    "date_of_purchase": "2012-11-11",
+    "vat_code": "VA333_33_333",
+    "date_of_tax_free_registration": "2021-12-12"
+  },
+  {
+    "ID": 2,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 32,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  },
+  {
+    "ID": 3,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 20,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  },
+  {
+    "ID": 5,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 18,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  },
+  {
+    "ID": 6,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 17,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  },
+  {
+    "ID": 7,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 15,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  },
+  {
+    "ID": 8,
+    "Company": "Sombra",
+    "Country": "Italy",
+    "vat_rate": 10,
+    "date_of_purchase": "2011-10-10",
+    "vat_code": "VA222_22_222",
+    "date_of_tax_free_registration": "2012-12-12"
+  },
+  {
+    "ID": 9,
+    "Company": "Geta",
+    "Country": "France",
+    "vat_rate": 23,
+    "date_of_purchase": "2021-12-12",
+    "vat_code": "VA333_33_333",
+    "date_of_tax_free_registration": "2021-12-12"
+  },
+  {
+    "ID": 10,
+    "Company": "Geta",
+    "Country": "France",
+    "vat_rate": 23,
+    "date_of_purchase": "2021-12-12",
+    "vat_code": "VA333_33_333",
+    "date_of_tax_free_registration": "2021-12-12"
+  },
+  {
+    "ID": 11,
+    "Company": "Geta",
+    "Country": "France",
+    "vat_rate": 23,
+    "date_of_purchase": "2021-12-12",
+    "vat_code": "VA333_33_333",
+    "date_of_tax_free_registration": "2021-12-12"
+  },
+  {
+    "ID": 12,
+    "Company": "g",
+    "Country": "Italy",
+    "vat_rate": 55,
+    "date_of_purchase": "2019-11-10",
+    "vat_code": "VAjjj_kk_kkk",
+    "date_of_tax_free_registration": "2020-09-10"
+  }
+]
