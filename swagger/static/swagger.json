@@ -1,0 +1,340 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "description": "Tax Free",
+    "version": "1.0.0",
+    "title": "TAX_FREE_REQUEST",
+    "contact": {
+      "email": "seanwasere@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "TAX FREE Request",
+      "description": "Example API for requesting and return tax free requests"
+    }
+  ],
+  "paths": {
+    "/tax-free": {
+      "post": {
+        "tags": [
+          "TAX FREE Request"
+        ],
+        "summary": "Create a new tax free",
+        "description": "",
+        "operationId": "addTaxFreeRequest",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "TaxFreeRequest object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TAX_FREE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TAX_FREE_RESPONSE"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "TAX FREE Request"
+        ],
+        "summary": "Get all tax free",
+        "operationId": "getTaxFrees",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "sort_by",
+            "in": "query",
+            "description": "Input parameter to sort by (default=id).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort_type",
+            "in": "query",
+            "description": "Input sort type asс or desc (default=asc).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search_string",
+            "in": "query",
+            "description": "Input data to search for.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Input offset",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Input limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllTax_Frees"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "TaxFreeRequest not found"
+          }
+        }
+      }
+    },
+    "/tax-free/{id}": {
+      "get": {
+        "tags": [
+          "TAX FREE Request"
+        ],
+        "summary": "Get tax_free with ID",
+        "description": "Returns a single object",
+        "operationId": "getById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of TaskFreeRequest to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TAX_FREE_RESPONSE"
+            }
+          },
+          "404": {
+            "description": "Failed. Element is not found\""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TAX FREE Request"
+        ],
+        "summary": "Update tax free",
+        "description": "",
+        "operationId": "updateTaxFreeRequestWithForm",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of TaxFreeRequest to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "TaxFreeRequest object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TAX_FREE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TAX_FREE_RESPONSE"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad put data."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TAX FREE Request"
+        ],
+        "summary": "Delete tax free",
+        "description": "",
+        "operationId": "deleteTaxFree",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Tax Free id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tax Free has been successfully deleted"
+          },
+          "404": {
+            "description": "Failed. Tax Free Request not found."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TAX_FREE": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "string",
+          "example": "Google"
+        },
+        "country": {
+          "type": "string",
+          "example": "France"
+        },
+        "vat_rate": {
+          "type": "integer",
+          "example": 22
+        },
+        "date_of_purchase": {
+          "type": "string",
+          "example": "2021-12-12"
+        },
+        "vat_code": {
+          "type": "string",
+          "example": "VA333_33_333"
+        },
+        "date_of_tax_free_registration": {
+          "type": "string",
+          "example": "2021-12-12"
+        }
+      },
+      "xml": {
+        "name": "TAX_FREE"
+      }
+    },
+     "TAX_FREE_RESPONSE": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "company": {
+          "type": "string",
+          "example": "Google"
+        },
+        "country": {
+          "type": "string",
+          "example": "France"
+        },
+        "vat_rate": {
+          "type": "integer",
+          "example": 22
+        },
+        "date_of_purchase": {
+          "type": "string",
+          "example": "2021-12-12"
+        },
+        "vat_code": {
+          "type": "string",
+          "example": "VA333_33_333"
+        },
+        "date_of_tax_free_registration": {
+          "type": "string",
+          "example": "2021-12-12"
+        }
+      },
+      "xml": {
+        "name": "TAX_FREE_RESPONSE"
+      }
+    },
+    "AllTax_Frees": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TAX_FREE_RESPONSE"
+          },
+          "example": [
+            {
+              "id": 1,
+              "company": "Google",
+              "country": "France",
+              "vat_rate": 22,
+              "date_of_purchase": "2021-12-12",
+              "vat_code": "VA333_33_333",
+              "date_of_tax_free_registration": "2021-12-12"
+            }
+          ]
+        },
+         "count": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
+
